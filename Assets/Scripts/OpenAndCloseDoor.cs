@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class OpenAndCloseDoor : MonoBehaviour
 {
+    private Animation animacion;
     // Start is called before the first frame update
     void Start()
     {
-        
+        animacion = gameObject.GetComponent<Animation>();
+        animacion.Stop("PuertaCerrada");
     }
 
     // Update is called once per frame
@@ -16,11 +18,11 @@ public class OpenAndCloseDoor : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(collider col)
+    void OnTriggerEnter(Collider col)
     {
-        if(col.CompareTag ("Player")
-            {
-
+        if(col.CompareTag("Player"))
+        {
+            animacion.Play("PuertaCerrada");
         }
     }
 }
