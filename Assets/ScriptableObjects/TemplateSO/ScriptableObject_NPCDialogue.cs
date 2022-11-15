@@ -29,4 +29,9 @@ public class ScriptableObject_NPCDialogue : ScriptableObject
     {
         bHasGivenQuest = HasStarted;
     }
+
+    public void FinishQuest()
+    {
+        bHasFinishedQuest = true;
+    }
 }
