@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f8f2e01fc16ba64b8f28ba901b4923d, type: 3}
-  m_Name: NPCDialogue
+  m_Name: SancionarDialogue
   m_EditorClassIdentifier: 
   QuestStartDialogue:
-  - Hola, quiero medialunas.
-  - Me ayudas a buscar algunas?
-  - Fijate por el pasillo si encontras alguna
-  QuestObjectiveString: Encontrar medialunas
+  - 
+  - Bueno, como viste los alumnos tomaron el colegio :0
+  - Ayudame a sancionarlos >:)
+  - Mira que bailo cuando lo haces
+  QuestObjectiveString: Sancionar a los alumnos
   QuestEndDialogue:
-  - Muy bien, encontraste las medialunas
-  - Como premio, te podes llevar una compu del L1
-  - Disfruta :)
-  OnQuestEndObjective: Volve a jero y entregale las medialunas
+  - Tremendo
+  OnQuestEndObjective: Bailar

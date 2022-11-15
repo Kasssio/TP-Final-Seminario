@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f8f2e01fc16ba64b8f28ba901b4923d, type: 3}
+  m_Name: MedialunaDialogue
+  m_EditorClassIdentifier: 
+  QuestStartDialogue:
+  - Hola, quiero medialunas.
+  - Me ayudas a buscar algunas?
+  - Fijate por el pasillo si encontras alguna
+  QuestObjectiveString: Encontrar medialunas
+  QuestEndDialogue:
+  - Muy bien, encontraste las medialunas
+  - Como premio, te podes llevar una compu del L1
+  - Disfruta :)
+  OnQuestEndObjective: Volve a jero y entregale las medialunas
