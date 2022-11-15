@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44937295, g: 0.49626505, b: 0.55860686, a: 1}
+  m_IndirectSpecularColor: {r: 0.4493733, g: 0.49626583, b: 0.5586078, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1678,6 +1678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Jero: {fileID: 1700843302}
+  ObjectiveUI: {fileID: 1302662808}
 --- !u!135 &236303155
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -21268,8 +21269,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a0dd3215e9d3f4987688ceb0f913a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstQuestDialogueSO: {fileID: 0}
-  SecondQuestDialogueSO: {fileID: 0}
+  FirstQuestDialogueSO: {fileID: 11400000, guid: ed305ee140e7ef4419a0a9585953709a,
+    type: 2}
+  SecondQuestDialogueSO: {fileID: 11400000, guid: 2c7412106ab67774d8c97f3dd82e8d56,
+    type: 2}
   DialogueUI: {fileID: 1596833305}
   ObjectiveUI: {fileID: 1302662808}
 --- !u!135 &1700843304

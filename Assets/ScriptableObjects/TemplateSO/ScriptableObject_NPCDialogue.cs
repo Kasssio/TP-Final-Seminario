@@ -30,6 +30,7 @@ public class ScriptableObject_NPCDialogue : ScriptableObject
         bHasGivenQuest = HasStarted;
     }
 
+    public void UpdateQuestEndState(bool State) { bHasFinishedQuest = State; }
     public void FinishQuest()
     {
         bHasFinishedQuest = true;
