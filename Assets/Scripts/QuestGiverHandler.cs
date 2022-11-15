@@ -5,13 +5,17 @@ using UnityEngine.UI;
 
 public class QuestGiverHandler : MonoBehaviour
 {
-    [SerializeField] ScriptableObject_NPCDialogue QuestDialogueSO;
+    [SerializeField] ScriptableObject_NPCDialogue FirstQuestDialogueSO;
+    [SerializeField] ScriptableObject_NPCDialogue SecondQuestDialogueSO;
+
     [SerializeField] Text DialogueUI;
     [SerializeField] Text ObjectiveUI;
 
     private int QuestStartIndex = 0;
     private int QuestEndIndex = 0;
+
     private bool IsInRange = false;
+    private bool HasStartedSecondQuest = false;
 
 
     // Start is called before the first frame update
@@ -22,7 +26,7 @@ public class QuestGiverHandler : MonoBehaviour
         if (ObjectiveUI)
             ObjectiveUI.enabled = false;
 
-        QuestDialogueSO.UpdateQuestState(false);
+        FirstQuestDialogueSO.UpdateQuestState(false);
     }
 
     // Update is called once per frame
@@ -48,47 +52,93 @@ public class QuestGiverHandler : MonoBehaviour
     
     }
 
-
-    void HandleDialogueUI()
+    void HandleSecondDialogueUI()
     {
         if (!IsInRange) return;
+        if (!HasStartedSecondQuest) return;
 
-        if(!QuestDialogueSO.HasGivenQuest())
-            DialogueUI.text = QuestDialogueSO.QuestStartDialogue[QuestStartIndex]; // When you enter the trigger, load the corresponding message. If we havent recieved the quest and we exited before recieving it, load the last message given
-        
-        else if(QuestDialogueSO.HasGivenQuest() && !QuestDialogueSO.HasFinishedQuest())
-        {
-            DialogueUI.text = QuestDialogueSO.QuestStartDialogue[QuestDialogueSO.QuestStartDialogue.Length - 1];
-        } // Just as a safety, if you recieved the quest but havent finished it, load the last message on QuestStartDialogue Array
+        if (!SecondQuestDialogueSO.HasGivenQuest())
+            DialogueUI.text = SecondQuestDialogueSO.QuestStartDialogue[QuestStartIndex];
 
-        else if(QuestDialogueSO.HasFinishedQuest())
-        {
-            DialogueUI.text = QuestDialogueSO.QuestEndDialogue[QuestEndIndex];
-        } // If you have finished the quest and exited the dialogue before exhausting it, load the last message given
+        else if (SecondQuestDialogueSO.HasGivenQuest() && !SecondQuestDialogueSO.HasFinishedQuest())
+            DialogueUI.text = SecondQuestDialogueSO.QuestStartDialogue[SecondQuestDialogueSO.QuestStartDialogue.Length - 1];
 
-        if(Input.GetKeyDown(KeyCode.E) && !QuestDialogueSO.HasGivenQuest())
+        else if (SecondQuestDialogueSO.HasFinishedQuest())
+            DialogueUI.text = SecondQuestDialogueSO.QuestEndDialogue[QuestEndIndex];
+
+        if(Input.GetKeyDown(KeyCode.E) && !SecondQuestDialogueSO.HasGivenQuest())
         {
             QuestStartIndex++;
-            DialogueUI.text = QuestDialogueSO.QuestStartDialogue[QuestStartIndex];
-        } // Cycle through the QuestStartDialogue array dynamically
+            DialogueUI.text = SecondQuestDialogueSO.QuestStartDialogue[QuestStartIndex];
+        }
 
-        else if(Input.GetKeyDown(KeyCode.E) && QuestDialogueSO.HasFinishedQuest())
+        else if (Input.GetKeyDown(KeyCode.E) && SecondQuestDialogueSO.HasFinishedQuest())
         {
-            DialogueUI.text = QuestDialogueSO.QuestEndDialogue[QuestEndIndex];
+            DialogueUI.text = SecondQuestDialogueSO.QuestEndDialogue[QuestEndIndex];
 
-            if ((QuestEndIndex + 1) <= (QuestDialogueSO.QuestEndDialogue.Length - 1)) QuestEndIndex++;
+            if ((QuestEndIndex + 1) <= (SecondQuestDialogueSO.QuestEndDialogue.Length - 1)) QuestEndIndex++;
 
-            if(QuestEndIndex == QuestDialogueSO.QuestEndDialogue.Length - 1)
+            if (QuestEndIndex == SecondQuestDialogueSO.QuestEndDialogue.Length - 1)
             {
                 //Do something here when the quest is finished and exhausted all quest end dialogue
             }
         } // Cycle through the QuestEndDialogue array dynamically
 
-        if (QuestStartIndex == QuestDialogueSO.QuestStartDialogue.Length - 1 && !QuestDialogueSO.HasGivenQuest())
+
+        if (QuestStartIndex == SecondQuestDialogueSO.QuestStartDialogue.Length - 1 && !SecondQuestDialogueSO.HasGivenQuest())
         {
-            QuestDialogueSO.UpdateQuestState(true);
+            SecondQuestDialogueSO.UpdateQuestState(true);
             ObjectiveUI.enabled = true;
-            ObjectiveUI.text = QuestDialogueSO.QuestObjectiveString;
+            ObjectiveUI.text = SecondQuestDialogueSO.QuestObjectiveString;
+
+        } // If we exhausted all QuestStartDialogue and we havent given the quest, update the quest state to given
+
+    }
+
+    void HandleDialogueUI()
+    {
+        if (!IsInRange) return;
+        if (HasStartedSecondQuest) return;
+
+        if(!FirstQuestDialogueSO.HasGivenQuest())
+            DialogueUI.text = FirstQuestDialogueSO.QuestStartDialogue[QuestStartIndex]; // When you enter the trigger, load the corresponding message. If we havent recieved the quest and we exited before recieving it, load the last message given
+        
+        else if(FirstQuestDialogueSO.HasGivenQuest() && !FirstQuestDialogueSO.HasFinishedQuest())
+        {
+            DialogueUI.text = FirstQuestDialogueSO.QuestStartDialogue[FirstQuestDialogueSO.QuestStartDialogue.Length - 1];
+        } // Just as a safety, if you recieved the quest but havent finished it, load the last message on QuestStartDialogue Array
+
+        else if(FirstQuestDialogueSO.HasFinishedQuest())
+        {
+            DialogueUI.text = FirstQuestDialogueSO.QuestEndDialogue[QuestEndIndex];
+        } // If you have finished the quest and exited the dialogue before exhausting it, load the last message given
+
+        if(Input.GetKeyDown(KeyCode.E) && !FirstQuestDialogueSO.HasGivenQuest())
+        {
+            QuestStartIndex++;
+            DialogueUI.text = FirstQuestDialogueSO.QuestStartDialogue[QuestStartIndex];
+        } // Cycle through the QuestStartDialogue array dynamically
+
+        else if(Input.GetKeyDown(KeyCode.E) && FirstQuestDialogueSO.HasFinishedQuest())
+        {
+            DialogueUI.text = FirstQuestDialogueSO.QuestEndDialogue[QuestEndIndex];
+
+            if ((QuestEndIndex + 1) <= (FirstQuestDialogueSO.QuestEndDialogue.Length - 1)) QuestEndIndex++;
+
+            if(QuestEndIndex == FirstQuestDialogueSO.QuestEndDialogue.Length - 1)
+            {
+                //Do something here when the quest is finished and exhausted all quest end dialogue
+                HasStartedSecondQuest = true;
+                QuestStartIndex = 0;
+                QuestEndIndex = 0;
+            }
+        } // Cycle through the QuestEndDialogue array dynamically
+
+        if (QuestStartIndex == FirstQuestDialogueSO.QuestStartDialogue.Length - 1 && !FirstQuestDialogueSO.HasGivenQuest())
+        {
+            FirstQuestDialogueSO.UpdateQuestState(true);
+            ObjectiveUI.enabled = true;
+            ObjectiveUI.text = FirstQuestDialogueSO.QuestObjectiveString;
 
         } // If we exhausted all QuestStartDialogue and we havent given the quest, update the quest state to given
 
