@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4493733, g: 0.49626583, b: 0.5586078, a: 1}
+  m_IndirectSpecularColor: {r: 0.44937295, g: 0.49626505, b: 0.55860686, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -20166,6 +20166,22 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
+--- !u!114 &1497740153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497740151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06aa11fd0797cd14faf16b78caa8425c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SanctionModel: {fileID: 100000, guid: dd3173ca07ddc2240b0d19e0e28857c1, type: 3}
+  ThrowPower: 1
+  SanctionCount: 25
+  CanSanction: 1
 --- !u!1 &1509228228
 GameObject:
   m_ObjectHideFlags: 0
