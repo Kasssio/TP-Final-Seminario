@@ -6,6 +6,9 @@ public class PickUpMedialunita : MonoBehaviour
 {
 
     bool medialunaHasBeenPickedUp = false;
+    [SerializeField] GameObject Jero;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +25,7 @@ public class PickUpMedialunita : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            medialunaHasBeenPickedUp = true;
+            Jero.GetComponent<QuestGiverHandler>().FirstQuestDialogueSO.FinishQuest();
             gameObject.SetActive(false);
         }
     }

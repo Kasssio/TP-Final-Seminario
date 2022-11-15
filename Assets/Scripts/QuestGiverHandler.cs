@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class QuestGiverHandler : MonoBehaviour
 {
-    [SerializeField] ScriptableObject_NPCDialogue FirstQuestDialogueSO;
-    [SerializeField] ScriptableObject_NPCDialogue SecondQuestDialogueSO;
+    [SerializeField] public  ScriptableObject_NPCDialogue FirstQuestDialogueSO;
+    [SerializeField] public ScriptableObject_NPCDialogue SecondQuestDialogueSO;
 
     [SerializeField] Text DialogueUI;
     [SerializeField] Text ObjectiveUI;
