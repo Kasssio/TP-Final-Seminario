@@ -9,7 +9,9 @@ public class NavigationScript : MonoBehaviour
     [SerializeField] Transform[] Positions;
 
     NavMeshAgent Agent;
+    GameObject PlayerRef;
 
+    bool HasHitPlayer = false;
     [SerializeField] float DistanceThreshold;
 
 
@@ -25,6 +27,13 @@ public class NavigationScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (HasHitPlayer)
+        {
+            Agent.destination = PlayerRef.transform.position;
+            return;
+        }
+
         if (Agent.remainingDistance <= DistanceThreshold)
         {
             Agent.destination = Positions[PositionIndex].position;
@@ -33,4 +42,16 @@ public class NavigationScript : MonoBehaviour
             else PositionIndex++;        
         }
     }
+
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (!collision.gameObject.CompareTag("Player")) return;
+
+        print("hola");
+
+        PlayerRef = collision.gameObject;
+        HasHitPlayer = true;
+    }
+
 }

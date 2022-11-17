@@ -38,7 +38,9 @@ public class ThrowSanctionScript : MonoBehaviour
     {
         if (SanctionCount <= 0) return;
         if (!CanInstance) return;
+
         SpawnedInstance = Instantiate(SanctionModel, transform.position, transform.rotation);
+        SpawnedInstance.transform.eulerAngles = transform.forward;
         CanInstance = false;
     }
   
@@ -46,10 +48,10 @@ public class ThrowSanctionScript : MonoBehaviour
     void Move()
     {
         if (!SpawnedInstance) return;
-        SpawnedInstance.transform.position += new Vector3(ThrowPower, 0, 0);
+        SpawnedInstance.transform.position += new Vector3(0, 0, 0);
         TranscurredTranslations++;
 
-        if (TranscurredTranslations >= 50) { Destroy(SpawnedInstance); TranscurredTranslations = 0; CanInstance = true; }
+        if (TranscurredTranslations >= 5000) { Destroy(SpawnedInstance); TranscurredTranslations = 0; CanInstance = true; }
     }
 
 }
