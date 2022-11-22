@@ -6,9 +6,9 @@ using UnityEngine;
 public class ThrowSanctionScript : MonoBehaviour
 {
     GameObject SpawnedInstance;
-
+    [SerializeField] GameObject cam;
     [SerializeField] GameObject SanctionModel;
-    [SerializeField] float ThrowPower = 1;
+    [SerializeField] float ThrowPower = 3;
     [SerializeField] int SanctionCount = 0;
 
     public bool CanSanction = false;
@@ -16,6 +16,7 @@ public class ThrowSanctionScript : MonoBehaviour
     private int TranscurredTranslations = 0;
     private bool CanInstance = true;
 
+    
 
     // Start is called before the first frame update
     void Start()
@@ -36,11 +37,13 @@ public class ThrowSanctionScript : MonoBehaviour
 
     void Instance()
     {
+        Vector3 camDir = cam.transform.forward;
         if (SanctionCount <= 0) return;
         if (!CanInstance) return;
 
-        SpawnedInstance = Instantiate(SanctionModel, transform.position, transform.rotation);
-        SpawnedInstance.transform.eulerAngles = transform.forward;
+        SpawnedInstance = Instantiate(SanctionModel, cam.transform.position, cam.transform.rotation);
+        //SpawnedInstance.transform.eulerAngles = cam.transform.forward * ThrowPower;
+        SanctionModel.GetComponent<Rigidbody>().AddRelativeForce(camDir * ThrowPower);
         CanInstance = false;
     }
   
@@ -48,10 +51,13 @@ public class ThrowSanctionScript : MonoBehaviour
     void Move()
     {
         if (!SpawnedInstance) return;
-        SpawnedInstance.transform.position += new Vector3(0, 0, 0);
+        SpawnedInstance.transform.position = new Vector3 //missing end
         TranscurredTranslations++;
 
         if (TranscurredTranslations >= 5000) { Destroy(SpawnedInstance); TranscurredTranslations = 0; CanInstance = true; }
+
+        //el problema está acá, habría que hacer que el proyectil viaje en la dirección en la que mira siempre
+        //por ahi usando la rotacion local funciona (?)
     }
 
 }
