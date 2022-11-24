@@ -8,7 +8,7 @@ public class ThrowSanctionScript : MonoBehaviour
     GameObject SpawnedInstance;
     [SerializeField] GameObject cam;
     [SerializeField] GameObject SanctionModel;
-    [SerializeField] float ThrowPower = 3;
+    [SerializeField] float ThrowPower = 0.1f;
     [SerializeField] int SanctionCount = 0;
 
     public bool CanSanction = false;
@@ -31,7 +31,7 @@ public class ThrowSanctionScript : MonoBehaviour
        {
             Instance();
        }
-
+       Vector3 camDir = cam.transform.forward;
         Move();
     }
 
@@ -45,13 +45,20 @@ public class ThrowSanctionScript : MonoBehaviour
         //SpawnedInstance.transform.eulerAngles = cam.transform.forward * ThrowPower;
         SanctionModel.GetComponent<Rigidbody>().AddRelativeForce(camDir * ThrowPower);
         CanInstance = false;
+        //for (int speed = 0; speed < 100; speed++)
+        //{
+
+        //}
     }
   
 
     void Move()
     {
         if (!SpawnedInstance) return;
-        SpawnedInstance.transform.position = new Vector3 //missing end
+        //SpawnedInstance.transform.position += SanctionModel.transform.localPosition; //missing end
+        Vector3 camDir = cam.transform.forward;
+        SpawnedInstance.transform.forward = camDir;
+        SpawnedInstance.transform.Translate(0, 0, 0.5f);
         TranscurredTranslations++;
 
         if (TranscurredTranslations >= 5000) { Destroy(SpawnedInstance); TranscurredTranslations = 0; CanInstance = true; }
