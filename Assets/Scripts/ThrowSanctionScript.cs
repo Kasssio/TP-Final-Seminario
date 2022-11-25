@@ -41,30 +41,29 @@ public class ThrowSanctionScript : MonoBehaviour
         if (SanctionCount <= 0) return;
         if (!CanInstance) return;
 
-        SpawnedInstance = Instantiate(SanctionModel, cam.transform.position, cam.transform.rotation);
-        //SpawnedInstance.transform.eulerAngles = cam.transform.forward * ThrowPower;
-        SanctionModel.GetComponent<Rigidbody>().AddRelativeForce(camDir * ThrowPower);
-        CanInstance = false;
-        //for (int speed = 0; speed < 100; speed++)
-        //{
+        Vector3 CalculatedPosition = cam.transform.position;
 
-        //}
+        CalculatedPosition.y -= 1;
+        CalculatedPosition += 1 * camDir;
+
+        SpawnedInstance = Instantiate(SanctionModel, CalculatedPosition, cam.transform.rotation);
+        SpawnedInstance.tag = "Nota";
+        CanInstance = false;
     }
   
 
     void Move()
     {
         if (!SpawnedInstance) return;
-        //SpawnedInstance.transform.position += SanctionModel.transform.localPosition; //missing end
+    
         Vector3 camDir = cam.transform.forward;
         SpawnedInstance.transform.forward = camDir;
         SpawnedInstance.transform.Translate(0, 0, 0.5f);
         TranscurredTranslations++;
 
-        if (TranscurredTranslations >= 5000) { Destroy(SpawnedInstance); TranscurredTranslations = 0; CanInstance = true; }
+        if (TranscurredTranslations >= 100) { Destroy(SpawnedInstance); TranscurredTranslations = 0; CanInstance = true; }
 
-        //el problema está acá, habría que hacer que el proyectil viaje en la dirección en la que mira siempre
-        //por ahi usando la rotacion local funciona (?)
+       
     }
 
 }
