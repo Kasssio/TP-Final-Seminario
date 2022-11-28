@@ -9,19 +9,30 @@ public class ThrowSanctionScript : MonoBehaviour
     [SerializeField] GameObject cam;
     [SerializeField] GameObject SanctionModel;
     [SerializeField] float ThrowPower = 0.1f;
-    [SerializeField] int SanctionCount = 0;
+    [SerializeField] int StudentsToHit = 0;
+
+    
 
     public bool CanSanction = false;
 
     private int TranscurredTranslations = 0;
+    private int HitStudents = 0;
     private bool CanInstance = true;
+    private bool FinishEvent = false;
 
-    
 
-    // Start is called before the first frame update
-    void Start()
+
+    public void IncrementStudentHitCounter()
     {
-        
+        if (FinishEvent) return;
+        HitStudents += 1;
+
+        if(HitStudents >= StudentsToHit)
+        {
+            GameObject.FindGameObjectWithTag("JeroTag").GetComponent<QuestGiverHandler>().SecondQuestDialogueSO.FinishQuest();
+            GameObject.FindGameObjectWithTag("JeroTag").GetComponent<QuestGiverHandler>().UpdateQuestUIOnSecondQuestEnd();
+            FinishEvent = true;
+        }
     }
 
     // Update is called once per frame
@@ -38,7 +49,6 @@ public class ThrowSanctionScript : MonoBehaviour
     void Instance()
     {
         Vector3 camDir = cam.transform.forward;
-        if (SanctionCount <= 0) return;
         if (!CanInstance) return;
 
         Vector3 CalculatedPosition = cam.transform.position;

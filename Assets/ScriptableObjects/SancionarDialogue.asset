@@ -20,4 +20,4 @@ MonoBehaviour:
   QuestObjectiveString: Sancionar a los alumnos
   QuestEndDialogue:
   - Tremendo
-  OnQuestEndObjective: Bailar
+  OnQuestEndObjective: Volver a jero

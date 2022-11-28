@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class dissapear : MonoBehaviour
 {
-  public GameObject jogador;
+    [SerializeField] GameObject jogador;
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Nota"))
         {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ThrowSanctionScript>().IncrementStudentHitCounter();
+
             jogador.SetActive(false);
         }
     }

@@ -14,6 +14,6 @@ public class AnimatorManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AnimatorController.Play("mixamo.com");
+        //AnimatorController.Play("mixamo.com");
     }
 }

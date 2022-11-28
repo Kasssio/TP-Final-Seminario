@@ -29,10 +29,11 @@ public class QuestGiverHandler : MonoBehaviour
         if (ObjectiveUI)
             ObjectiveUI.enabled = false;
 
-        FirstQuestDialogueSO.UpdateQuestState(false);
+        FirstQuestDialogueSO.UpdateQuestState(false); // reset the SOs
         FirstQuestDialogueSO.UpdateQuestEndState(false);
         SecondQuestDialogueSO.UpdateQuestState(false);
         SecondQuestDialogueSO.UpdateQuestEndState(false);
+
     }
 
     // Update is called once per frame
@@ -106,6 +107,8 @@ public class QuestGiverHandler : MonoBehaviour
             ObjectiveUI.enabled = true;
             ObjectiveUI.text = SecondQuestDialogueSO.QuestObjectiveString;
 
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ThrowSanctionScript>().CanSanction = true;
+
         } // If we exhausted all QuestStartDialogue and we havent given the quest, update the quest state to given
 
     }
@@ -160,6 +163,19 @@ public class QuestGiverHandler : MonoBehaviour
        
 
     }
+
+    public void UpdateQuestUIOnSecondQuestEnd()
+    {
+        ObjectiveUI.text = SecondQuestDialogueSO.OnQuestEndObjective;
+        Animator JeroAnimator = GetComponent<Animator>();
+
+        if (!JeroAnimator) { print("Animatorn't"); return; }
+
+        JeroAnimator.SetBool("EndedQuest", true);
+    }
+
+
+
 
 
 }
